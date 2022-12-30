@@ -22,6 +22,17 @@ void removeButtons(Scene& scene){
     scene.buttonsClear(buttonsToRemove);
 }
 
+void appendText(Scene& scene, Button& b){
+    std::string text = b.getInstructions().substr(9, b.getInstructions().length()-11);
+    printf("%ld\n",b.getInstructions().length()-11);
+    printf("%s\n", text.c_str());
+    scene.getTexts()[0].addText(text);
+}
+
+void calculate(Scene& scene, Button& b){
+    puts("Calculating...");
+}
+
 void none(Scene& scene){}
 
 void homescreen(Scene& scene){
@@ -41,8 +52,12 @@ void center(Scene& scene){
         c.setPos(((width/2)-(c.getDim().x/2)) + c.getOriginalPos().x, (height/2)-(c.getDim().y/2) + c.getOriginalPos().y);
     }
     for(TextBox& c : scene.getTexts()){
-    if(c.getManagement())
-        c.setPos(((width/2)-(c.getDim().x/2)) + c.getOriginalPos().x, (height/2)-(c.getDim().y/2) + c.getOriginalPos().y);
+    if(c.getManagement()){
+            c.setDim(width, c.getDim().y);
+            printf("1Dimensions are: %d, %d", c.getDim().x, c.getDim().y);
+            c.renderText();
+            printf("2Dimensions are: %d, %d", c.getDim().x, c.getDim().y);
+        }
     }
     for(DropDownMenu& c : scene.getMenus()){
     if(c.getManagement())

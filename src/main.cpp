@@ -60,7 +60,6 @@ int main(int argc, char* args[]){
                 case SDL_WINDOWEVENT:
                     if(event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED){
                         scenes[0]->resize();
-                        puts("Resizing................................................................................");
                         
                     }
                 break;

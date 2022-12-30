@@ -15,6 +15,8 @@ void add(Scene& scene, Button& b);
 void noneButton(Scene& scene, Button& b);
 void createAccount(Scene& scene, Button& b);
 void login(Scene& scene, Button& b);
+void appendText(Scene& scene, Button& b);
+void calculate(Scene& scene, Button& b);
 
 void removeButtons(Scene& scene);
 void center(Scene& scene);

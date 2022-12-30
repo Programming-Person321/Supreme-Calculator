@@ -2,7 +2,6 @@
 #include "include/window.hpp"
 
 SDL_Texture* createBackground(){
-      puts("Creating Background");
       int width, height;
       SDL_GetRendererOutputSize(renderer, &width, &height);
 

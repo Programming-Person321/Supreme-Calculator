@@ -11,14 +11,14 @@ private:
     bool pressed = false;
     bool keys = false;
     
-    void renderText();
+    
     const char* fontPath;
     int size;
 public:
-    void addText(char);
+    void addText(std::string);
     void clearText();
     std::string getText();
-
+    void renderText();
     void setPressed(bool b);
     bool getPressed();
     void setKeys(bool b);

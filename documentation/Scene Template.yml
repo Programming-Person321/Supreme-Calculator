@@ -1,0 +1,12 @@
+#scales                                                       comment (optional)
+txt: 10 10 9 0 Other File Text                                text box
+tlb: /0/255/255/ 30 File Label                                load a texture from text
+img: res/images/icon.png                                      load a texture from an image
+lbl: 100 200 0                                                label
+btn: 400 400 0 {LOAD(4)}                                      button
+drp: 500 500 30 0 /File 1/File 2/File 3/Level 5/              drop down menu
+not: 400 50 700 80 0                                          note box
+sem: {NONE}                                                   scene mouse
+ser: {NONE}                                                   scene resize
+sec: {NONE}                                                   scene keyboard
+seg: {BACK}                                                   scene game

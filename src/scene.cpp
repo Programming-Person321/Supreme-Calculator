@@ -1,6 +1,9 @@
 #include "include/scene.hpp"
 #include "include/component.hpp"
 #include "include/GUI.hpp"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -95,7 +98,9 @@ void Scene::keyEvent(SDL_Event& event, bool b){
             if(t.getKeys() && b){
                 int i = (int)event.key.keysym.sym;
                 printf("%d\n", i);
-                if(i != 8) t.addText(i);
+                std::string text;
+                text+=(char)i;
+                if(i != 8) t.addText(text);
                 else t.clearText();
                 mouseBool = false;
                 continue;
@@ -137,7 +142,7 @@ void Scene::setSceneChange(uint i){
     printf("%d\n", sceneChange);
 }
 
-void Scene::resize(){puts("Resizing"); SDL_DestroyTexture(textures[0]); textures[0] = createBackground(); resizeVoid(*this);}
+void Scene::resize(){ SDL_DestroyTexture(textures[0]); textures[0] = createBackground(); resizeVoid(*this);}
 
 void Scene::loadScene(int loading){
     std::fstream level;
@@ -232,6 +237,8 @@ void Scene::loadScene(int loading){
 
                 if(code.find("LOAD") != std::string::npos) {buttons.push_back(Button(textures[textures.size()-3], textures[textures.size()-2], textures[textures.size()-1], x, y, load, code)); buttons[buttons.size()-1].setManagement(m);}
            else if(code.find("ADD") != std::string::npos) {buttons.push_back(Button(textures[textures.size()-3], textures[textures.size()-2], textures[textures.size()-1], x, y, add, code)); buttons[buttons.size()-1].setManagement(m);}
+           else if(code.find("APPEND") != std::string::npos) {buttons.push_back(Button(textures[textures.size()-3], textures[textures.size()-2], textures[textures.size()-1], x, y, appendText, code)); buttons[buttons.size()-1].setManagement(m);}
+           else if(code.find("CALCULATE") != std::string::npos) {buttons.push_back(Button(textures[textures.size()-3], textures[textures.size()-2], textures[textures.size()-1], x, y, calculate, code)); buttons[buttons.size()-1].setManagement(m);}
            else if(code.find("NONE") != std::string::npos) {buttons.push_back(Button(textures[textures.size()-3], textures[textures.size()-2], textures[textures.size()-1], x, y, noneButton, code)); buttons[buttons.size()-1].setManagement(m);}
            else{puts("No Known Functionality for the desired button");}
                 
@@ -267,8 +274,24 @@ void Scene::loadScene(int loading){
                 int g = std::stoi(list[1]);
                 int b = std::stoi(list[2]);
 
+                TTF_Font* font = TTF_OpenFont("res/fonts/Amaranth-Bold.ttf", s);
+                SDL_Color colour;
+                colour = {255, 255, 255};
+                SDL_Surface* message;
+                message = TTF_RenderText_Blended(font, text.c_str(), colour);
 
-                textures.push_back(loadFont("res/fonts/Amaranth-Bold.ttf", s, text.c_str(), r, g, b, renderer));
+                SDL_Rect size = {0,0,message->w,message->h};
+                SDL_Surface *back = SDL_CreateRGBSurface(0, size.w, size.h, 32, 0, 0, 0, 0);
+                SDL_FillRect(back, &size, SDL_MapRGB(back->format, r, g, b));
+
+                SDL_BlitSurface(message, &message->clip_rect, back, &back->clip_rect);
+
+                
+                textures.push_back(loadTextureFromSurface(back, renderer));
+
+                SDL_FreeSurface(back);
+                SDL_FreeSurface(message);
+                TTF_CloseFont(font);
 
  
 

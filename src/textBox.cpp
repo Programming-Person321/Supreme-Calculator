@@ -19,7 +19,7 @@ void TextBox::renderText(){
     SDL_Surface* message;
     if (text != "") message = TTF_RenderText_Blended(font, text.c_str(), colour);
     else message = TTF_RenderText_Blended(font, " ", colour);
-    setDim(300, message->h);
+    setDim(dimensions.x, message->h);
 
     SDL_Rect size = {0,0,dimensions.x,dimensions.y};
     SDL_Surface *back = SDL_CreateRGBSurface(0, size.w, size.h, 32, 0, 0, 0, 0);
@@ -36,9 +36,9 @@ void TextBox::renderText(){
 }
 
 //text functions
-void TextBox::addText(char c){
+void TextBox::addText(std::string s){
     puts("Adding Text");
-    text = text+c;
+    text = text+s;
     printf("Text now is: %s\n", text.c_str());
     renderText();
 }

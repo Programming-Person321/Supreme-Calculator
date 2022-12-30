@@ -8,7 +8,7 @@ protected:
     SDL_Texture* t;
     Vector pos;
     Vector originalPos;
-    Vector dimensions;
+    Vector dimensions = {100, 100};
     bool manageGUI = false;
 public:
     Vector getPos();
