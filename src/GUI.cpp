@@ -42,8 +42,8 @@ void calculate(Scene& scene, Button& b){
         puts("it has an exponent");
             
         printf("Index: %ld\n", input.find("^"));
-
-        int index = input.find("^");
+        
+        uint64_t index = input.find("^");
 
         //makes strings of before and after
         std::string before = input.substr(0, (index));
@@ -53,11 +53,11 @@ void calculate(Scene& scene, Button& b){
         printf("%s\n", after.c_str());
 
         //makes string to ints
-        int beforeInt = std::stoi(before);
-        int afterInt = std::stoi(after);
+        double beforeDouble = std::stod(before);
+        double afterDouble = std::stod(after);
 
         scene.getTexts()[0].clearText();
-        scene.getTexts()[0].addText(std::to_string(pow((double)beforeInt, (double)afterInt)));
+        scene.getTexts()[0].addText(std::to_string(pow(beforeDouble, afterDouble)));
     }
 }
 
